@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@layer base {
+	body {
+		@apply min-w-80 bg-white text-neutral-900 antialiased;
+	}
+}
+
+@layer components {
+	main {
+		@apply mx-auto w-full max-w-5xl px-5 pt-12 pb-20 sm:px-7;
+	}
+
+	header {
+		@apply border-neutral-200 border-b pb-8;
+	}
+
+	h1 {
+		@apply font-semibold text-3xl tracking-tight;
+	}
+
+	header p {
+		@apply mt-1.5 text-neutral-500 text-sm;
+	}
+
+	section {
+		@apply border-neutral-200 border-b py-8;
+	}
+
+	.section-heading {
+		@apply mb-4 flex items-baseline justify-between gap-4;
+	}
+
+	h2 {
+		@apply font-semibold text-base tracking-tight;
+	}
+
+	.section-heading span {
+		@apply text-neutral-500 text-xs;
+	}
+
+	.samples {
+		@apply grid grid-cols-2 gap-3;
+	}
+
+	.avatars {
+		@apply sm:grid-cols-3 lg:grid-cols-5;
+	}
+
+	.icons,
+	.placeholders {
+		@apply sm:grid-cols-4;
+	}
+
+	.qr-codes {
+		@apply sm:grid-cols-4;
+	}
+
+	figure {
+		@apply min-w-0;
+	}
+
+	.preview {
+		@apply grid h-37 place-items-center rounded-md border border-neutral-200 bg-neutral-50 p-3 sm:h-42 sm:p-4;
+	}
+
+	figcaption {
+		@apply flex flex-col gap-0.5 px-0.5 pt-2 text-xs sm:flex-row sm:justify-between sm:gap-3;
+	}
+
+	figcaption strong {
+		@apply font-semibold;
+	}
+
+	code {
+		@apply truncate font-mono text-neutral-500;
+	}
+
+	.avatars img {
+		@apply size-28 rounded-sm;
+	}
+
+	.icons svg {
+		@apply size-12;
+	}
+
+	.qr-codes img {
+		@apply size-30;
+	}
+
+	.placeholders img {
+		@apply max-h-34 max-w-full object-contain;
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"name": "@pictum/playground-vue",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"typecheck": "vue-tsc --noEmit"
+	},
+	"dependencies": {
+		"@pictum/vue": "workspace:*",
+		"vue": "^3.5.41"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"@vitejs/plugin-vue": "^6.0.8",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^6.0.3",
+		"vite": "^8.1.4",
+		"vue-tsc": "^3.3.9"
+	}
+}
