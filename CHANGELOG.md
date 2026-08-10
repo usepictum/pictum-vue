@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.1.3 - 2026-08-10
+
+
+### Bug Fixes
+
+* require pictum 0.1.2 by [@nhedger](https://github.com/nhedger) ([b83b3b3](https://github.com/usepictum/pictum-vue/commit/b83b3b39d025131375bde3ca380b451dd5c8147e))
+
+
+
+### Contributors
+* [@nhedger](https://github.com/nhedger)
+
+**Comparison**: https://github.com/usepictum/pictum-vue/compare/v0.1.2...v0.1.3
+
 ## v0.1.2 - 2026-08-10
 
 
