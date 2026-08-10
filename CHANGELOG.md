@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.1.1 - 2026-08-10
+
+
+### Features
+
+* support QR Code quiet zone by [@nhedger](https://github.com/nhedger) ([f34284b](https://github.com/usepictum/pictum-vue/commit/f34284b707e02b513e514f89e57f92ad994be6e6))
+
+
+
+### Contributors
+* [@nhedger](https://github.com/nhedger)
+
+**Comparison**: https://github.com/usepictum/pictum-vue/compare/v0.1.0...v0.1.1
+
 ## v0.1.0 - 2026-08-09
 
 
