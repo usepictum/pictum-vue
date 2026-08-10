@@ -4,7 +4,7 @@
 [![monthly downloads](https://npmx.dev/api/registry/badge/downloads/@pictum/vue?color=fed7aa&labelColor=404040)](https://npmx.dev/package/@pictum/vue)
 [![license](https://npmx.dev/api/registry/badge/license/@pictum/vue?color=bbf7d0&labelColor=404040)](https://npmx.dev/package/@pictum/vue)
 
-[Pictum](https://pictum.dev) asset components and composables for Vue 3
+[Pictum](https://pictum.dev) asset components and composables for Vue 3.5+
 
 ## Installation
 
