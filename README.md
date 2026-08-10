@@ -1,4 +1,4 @@
-# Pictum Vue
+# <sub><img src="https://pictum.dev/api/v1/icons/devicon/vuejs.svg" width="28" /></sub> Pictum for Vue
 
 [![npm version](https://npmx.dev/api/registry/badge/version/@pictum/vue?color=bfdbfe&labelColor=404040)](https://npmx.dev/package/@pictum/vue)
 [![monthly downloads](https://npmx.dev/api/registry/badge/downloads/@pictum/vue?color=fed7aa&labelColor=404040)](https://npmx.dev/package/@pictum/vue)
