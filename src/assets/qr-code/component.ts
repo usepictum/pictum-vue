@@ -16,6 +16,9 @@ export const QrCode = defineComponent<QrCodeProps>(
 				({
 					...(props.options ?? {}),
 					...(props.format === undefined ? {} : { format: props.format }),
+					...(props.quietZone === undefined
+						? {}
+						: { quietZone: props.quietZone }),
 				}) satisfies QrCodeOptions,
 		);
 
@@ -27,6 +30,7 @@ export const QrCode = defineComponent<QrCodeProps>(
 		props: {
 			value: { type: String, required: true },
 			format: String as PropType<QrCodeFormat>,
+			quietZone: { type: Boolean, default: undefined },
 			options: Object as PropType<PictumOptions>,
 		},
 	},

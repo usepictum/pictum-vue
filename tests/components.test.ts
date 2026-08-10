@@ -107,6 +107,28 @@ describe("components", () => {
 		);
 	});
 
+	test("renders a QR code without a quiet zone", () => {
+		const container = mount(
+			defineComponent({
+				setup() {
+					return () =>
+						h(QrCode, {
+							value: "https://pictum.dev",
+							quietZone: false,
+							alt: "Edge-to-edge QR code",
+						});
+				},
+			}),
+		);
+
+		expect(
+			container.querySelector('[alt="Edge-to-edge QR code"]'),
+		).toHaveAttribute(
+			"src",
+			"https://pictum.dev/api/v1/qr-codes.svg?data=aHR0cHM6Ly9waWN0dW0uZGV2&quiet_zone=0",
+		);
+	});
+
 	test("reacts to composable inputs", async () => {
 		const seed = ref("ada-lovelace");
 		const container = mount(
