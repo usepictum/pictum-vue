@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       pictum:
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.0
+        version: 0.1.2
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.5.7
@@ -1094,8 +1094,8 @@ packages:
     resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
     engines: {node: '>=12'}
 
-  pictum@0.1.1:
-    resolution: {integrity: sha512-ueU3uajDL6zA15V6sWCbrDoCHKv0WCtoHy3ChFm1ubrTB2XkCtFCOomHDhiMO9EvKX9kN2rFY8l36djVLkJqtg==}
+  pictum@0.1.2:
+    resolution: {integrity: sha512-Kli21/m8qlxugv0OgLt9P0yI/5Oo4ZMJCmJ/1r0ALsTAAHaytlsy9w6oObaxzHkhyowjnQA1z7neOFnrHfCZvg==}
 
   playwright-core@1.62.1:
     resolution: {integrity: sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==}
@@ -2157,7 +2157,7 @@ snapshots:
 
   picomatch@4.0.5: {}
 
-  pictum@0.1.1: {}
+  pictum@0.1.2: {}
 
   playwright-core@1.62.1: {}
 
