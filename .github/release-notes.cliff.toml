@@ -6,6 +6,7 @@ owner = "usepictum"
 repo = "pictum-vue"
 
 [bump]
+features_always_bump_minor = false
 initial_tag = "0.1.0"
 
 [changelog]
