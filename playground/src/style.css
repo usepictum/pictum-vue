@@ -44,7 +44,7 @@
 	}
 
 	.avatars {
-		@apply sm:grid-cols-3 lg:grid-cols-5;
+		@apply sm:grid-cols-3 lg:grid-cols-6;
 	}
 
 	.icons,

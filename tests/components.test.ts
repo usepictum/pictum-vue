@@ -1,6 +1,14 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 import type { Component } from "vue";
-import { createApp, defineComponent, h, nextTick, ref } from "vue";
+import {
+	createApp,
+	createSSRApp,
+	defineComponent,
+	h,
+	nextTick,
+	ref,
+} from "vue";
+import { renderToString } from "vue/server-renderer";
 import {
 	Avatar,
 	Icon,
@@ -26,7 +34,7 @@ afterEach(() => {
 });
 
 describe("components", () => {
-	test("renders an inline icon and caches its canonical SVG", async () => {
+	test("renders an inline icon without caller suspense and caches its canonical SVG", async () => {
 		const fetchMock = vi
 			.fn()
 			.mockResolvedValue(
@@ -72,6 +80,31 @@ describe("components", () => {
 		expect(fetchMock).toHaveBeenCalledTimes(1);
 	});
 
+	test("renders resolved inline icon markup during SSR", async () => {
+		const fetchMock = vi
+			.fn()
+			.mockResolvedValue(
+				new Response(
+					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1 1h22"/></svg>',
+				),
+			);
+		vi.stubGlobal("fetch", fetchMock);
+
+		const html = await renderToString(
+			createSSRApp({
+				render: () =>
+					h(Icon, {
+						name: "lucide:vue-ssr-icon",
+						"aria-label": "SSR icon",
+					}),
+			}),
+		);
+
+		expect(html).toContain('viewBox="0 0 24 24"');
+		expect(html).toContain('<path d="M1 1h22"');
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+	});
+
 	test("uses provider options and lets components override them", () => {
 		const container = mount(
 			defineComponent({
@@ -99,15 +132,15 @@ describe("components", () => {
 
 		expect(container.querySelector('[alt="Ada"]')).toHaveAttribute(
 			"src",
-			"https://staging.example.com/v1/avatars/initials/ada-lovelace.svg",
+			"https://staging.example.com/v1/avatar.svg?seed=ada-lovelace",
 		);
 		expect(container.querySelector('[alt="Hello"]')).toHaveAttribute(
 			"src",
-			"https://preview.example.com/v1/qr-codes.svg?data=aGVsbG8%3D",
+			"https://preview.example.com/v1/qrcode.svg?data=aGVsbG8%3D",
 		);
 	});
 
-	test("renders a QR code without a quiet zone", () => {
+	test("forwards QR code options without leaking image attributes", () => {
 		const container = mount(
 			defineComponent({
 				setup() {
@@ -115,18 +148,22 @@ describe("components", () => {
 						h(QrCode, {
 							value: "https://pictum.dev",
 							quietZone: false,
-							alt: "Edge-to-edge QR code",
+							foreground: "#11223344",
+							background: "#aabbccdd",
+							alt: "Custom QR code",
 						});
 				},
 			}),
 		);
 
-		expect(
-			container.querySelector('[alt="Edge-to-edge QR code"]'),
-		).toHaveAttribute(
+		const image = container.querySelector('[alt="Custom QR code"]');
+		expect(image).toHaveAttribute(
 			"src",
-			"https://pictum.dev/api/v1/qr-codes.svg?data=aHR0cHM6Ly9waWN0dW0uZGV2&quiet_zone=0",
+			"https://pictum.dev/v1/qrcode.svg?data=aHR0cHM6Ly9waWN0dW0uZGV2&quiet_zone=0&foreground=%2311223344&background=%23aabbccdd",
 		);
+		expect(image).not.toHaveAttribute("quietzone");
+		expect(image).not.toHaveAttribute("foreground");
+		expect(image).not.toHaveAttribute("background");
 	});
 
 	test("reacts to composable inputs", async () => {
@@ -141,26 +178,26 @@ describe("components", () => {
 		);
 
 		expect(container.textContent).toBe(
-			"https://pictum.dev/api/v1/avatars/initials/ada-lovelace.webp",
+			"https://pictum.dev/v1/avatar.webp?seed=ada-lovelace",
 		);
 
 		seed.value = "grace-hopper";
 		await nextTick();
 
 		expect(container.textContent).toBe(
-			"https://pictum.dev/api/v1/avatars/initials/grace-hopper.webp",
+			"https://pictum.dev/v1/avatar.webp?seed=grace-hopper",
 		);
 	});
 
-	test("renders gendered realistic avatars", () => {
+	test("renders an unfiltered portrait for the any gender", () => {
 		const container = mount(
 			defineComponent({
 				setup() {
 					return () =>
 						h(Avatar, {
 							seed: "customer-123",
-							variant: "realistic",
-							gender: "male",
+							variant: "portrait",
+							gender: "any",
 							alt: "Customer",
 						});
 				},
@@ -169,8 +206,35 @@ describe("components", () => {
 
 		expect(container.querySelector('[alt="Customer"]')).toHaveAttribute(
 			"src",
-			"https://pictum.dev/api/v1/avatars/realistic/male/customer-123.webp",
+			"https://pictum.dev/v1/avatar.webp?seed=customer-123&variant=portrait",
 		);
+	});
+
+	test("requests a portrait source size without forwarding it to the image", () => {
+		const container = mount(
+			defineComponent({
+				setup() {
+					return () =>
+						h(Avatar, {
+							seed: "customer-456",
+							variant: "portrait",
+							size: 256,
+							width: 96,
+							height: 128,
+							alt: "Sized customer",
+						});
+				},
+			}),
+		);
+
+		const image = container.querySelector('[alt="Sized customer"]');
+		expect(image).toHaveAttribute(
+			"src",
+			"https://pictum.dev/v1/avatar.webp?seed=customer-456&variant=portrait&size=256",
+		);
+		expect(image).toHaveAttribute("width", "96");
+		expect(image).toHaveAttribute("height", "128");
+		expect(image).not.toHaveAttribute("size");
 	});
 
 	test("sets placeholder logical image dimensions", () => {
@@ -195,7 +259,7 @@ describe("components", () => {
 		expect(image).toHaveAttribute("height", "360");
 		expect(image).toHaveAttribute(
 			"src",
-			"https://pictum.dev/api/v1/placeholders/640x360@3x.webp?text=Coming+soon",
+			"https://pictum.dev/v1/placeholder.webp?width=640&height=360&density=3&text=Coming+soon",
 		);
 	});
 });

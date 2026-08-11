@@ -13,7 +13,7 @@ import { Avatar, Icon, Placeholder, QrCode } from "@pictum/vue";
 		<section aria-labelledby="avatars-heading">
 			<div class="section-heading">
 				<h2 id="avatars-heading">Avatars</h2>
-				<span>5 variants</span>
+				<span>6 examples</span>
 			</div>
 			<div class="samples avatars">
 				<figure>
@@ -42,39 +42,53 @@ import { Avatar, Icon, Placeholder, QrCode } from "@pictum/vue";
 					<div class="preview">
 						<Avatar
 							seed="margaret-hamilton"
-							variant="initials"
+							variant="monogram"
 							format="png"
-							alt="Initials avatar"
+							alt="Monogram avatar"
 						/>
 					</div>
-					<figcaption><strong>Initials</strong><code>png</code></figcaption>
+					<figcaption><strong>Monogram</strong><code>png</code></figcaption>
+				</figure>
+				<figure>
+					<div class="preview">
+						<Avatar
+							seed="customer-any"
+							variant="portrait"
+							gender="any"
+							format="webp"
+							alt="Portrait any avatar"
+						/>
+					</div>
+					<figcaption>
+						<strong>Portrait</strong><code>any · webp</code>
+					</figcaption>
 				</figure>
 				<figure>
 					<div class="preview">
 						<Avatar
 							seed="customer-female"
-							variant="realistic"
+							variant="portrait"
 							gender="female"
 							format="webp"
-							alt="Realistic female avatar"
+							alt="Portrait female avatar"
 						/>
 					</div>
 					<figcaption>
-						<strong>Realistic</strong><code>female · webp</code>
+						<strong>Portrait</strong><code>female · webp</code>
 					</figcaption>
 				</figure>
 				<figure>
 					<div class="preview">
 						<Avatar
 							seed="customer-male"
-							variant="realistic"
+							variant="portrait"
 							gender="male"
 							format="jpg"
-							alt="Realistic male avatar"
+							alt="Portrait male avatar"
 						/>
 					</div>
 					<figcaption>
-						<strong>Realistic</strong><code>male · jpg</code>
+						<strong>Portrait</strong><code>male · jpg</code>
 					</figcaption>
 				</figure>
 			</div>

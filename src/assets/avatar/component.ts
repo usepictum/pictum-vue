@@ -19,6 +19,7 @@ interface AvatarRuntimeProps {
 	variant?: AvatarVariant;
 	gender?: AvatarGender;
 	format?: AvatarFormat;
+	size?: number;
 	options?: PictumOptions;
 }
 
@@ -32,6 +33,7 @@ export const Avatar = defineComponent<AvatarRuntimeProps>(
 					...(props.variant === undefined ? {} : { variant: props.variant }),
 					...(props.gender === undefined ? {} : { gender: props.gender }),
 					...(props.format === undefined ? {} : { format: props.format }),
+					...(props.size === undefined ? {} : { size: props.size }),
 				}) as AvatarOptions,
 		);
 
@@ -45,6 +47,7 @@ export const Avatar = defineComponent<AvatarRuntimeProps>(
 			variant: String as PropType<AvatarVariant>,
 			gender: String as PropType<AvatarGender>,
 			format: String as PropType<AvatarFormat>,
+			size: Number,
 			options: Object as PropType<PictumOptions>,
 		},
 	},

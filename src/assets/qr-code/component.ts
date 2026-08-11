@@ -19,6 +19,12 @@ export const QrCode = defineComponent<QrCodeProps>(
 					...(props.quietZone === undefined
 						? {}
 						: { quietZone: props.quietZone }),
+					...(props.foreground === undefined
+						? {}
+						: { foreground: props.foreground }),
+					...(props.background === undefined
+						? {}
+						: { background: props.background }),
 				}) satisfies QrCodeOptions,
 		);
 
@@ -28,8 +34,10 @@ export const QrCode = defineComponent<QrCodeProps>(
 		name: "PictumQrCode",
 		inheritAttrs: false,
 		props: {
+			background: String,
 			value: { type: String, required: true },
 			format: String as PropType<QrCodeFormat>,
+			foreground: String,
 			quietZone: { type: Boolean, default: undefined },
 			options: Object as PropType<PictumOptions>,
 		},

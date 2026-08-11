@@ -4,6 +4,7 @@ import {
 	defineComponent,
 	h,
 	type PropType,
+	Suspense,
 	shallowRef,
 	watch,
 } from "vue";
@@ -16,31 +17,32 @@ interface ParsedIcon {
 }
 
 const iconCache = new Map<string, Promise<ParsedIcon>>();
+const iconProps = {
+	name: { type: String, required: true },
+	options: Object as PropType<PictumOptions>,
+};
 
-export const Icon = defineComponent<IconProps>(
-	(props, { attrs }) => {
+const ResolvedIcon = defineComponent<IconProps>(
+	async (props, { attrs }) => {
 		const asset = useIcon(
 			() => props.name,
 			() => props.options,
 		);
 		const markup = shallowRef<ParsedIcon>();
+		let request = 0;
 
-		watch(
-			asset,
-			async (nextAsset, _, onCleanup) => {
-				let active = true;
-				onCleanup(() => {
-					active = false;
-				});
-				markup.value = undefined;
+		async function updateMarkup(nextAsset: PictumAsset): Promise<void> {
+			const currentRequest = ++request;
+			markup.value = undefined;
 
-				const nextMarkup = await loadIcon(nextAsset);
-				if (active) {
-					markup.value = nextMarkup;
-				}
-			},
-			{ immediate: true },
-		);
+			const nextMarkup = await loadIcon(nextAsset);
+			if (currentRequest === request) {
+				markup.value = nextMarkup;
+			}
+		}
+
+		watch(asset, updateMarkup);
+		await updateMarkup(asset.value);
 
 		return () =>
 			h("svg", {
@@ -51,12 +53,24 @@ export const Icon = defineComponent<IconProps>(
 			});
 	},
 	{
+		name: "PictumResolvedIcon",
+		inheritAttrs: false,
+		props: iconProps,
+	},
+) as DefineSetupFnComponent<IconProps>;
+
+export const Icon = defineComponent<IconProps>(
+	(props, { attrs }) =>
+		() =>
+			h(Suspense, null, {
+				default: () => h(ResolvedIcon, { ...props, ...attrs }),
+				fallback: () =>
+					h("svg", { xmlns: "http://www.w3.org/2000/svg", ...attrs }),
+			}),
+	{
 		name: "PictumIcon",
 		inheritAttrs: false,
-		props: {
-			name: { type: String, required: true },
-			options: Object as PropType<PictumOptions>,
-		},
+		props: iconProps,
 	},
 ) as DefineSetupFnComponent<IconProps>;
 
