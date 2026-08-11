@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.1.4 - 2026-08-11
+
+
+### Features
+
+* support avatar sizing, QR code colors, and icon SSR by [@nhedger](https://github.com/nhedger) ([1b32cc7](https://github.com/usepictum/pictum-vue/commit/1b32cc70ca13f214f6b59e82d45669d99be655fb))
+
+
+
+### Contributors
+* [@nhedger](https://github.com/nhedger)
+
+**Comparison**: https://github.com/usepictum/pictum-vue/compare/v0.1.3...v0.1.4
+
 ## v0.1.3 - 2026-08-10
 
 
